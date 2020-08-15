@@ -27,30 +27,34 @@ Things you may want to cover:
 ## usersテーブル
 |Column|Type|Option|
 |------|----|------|
-|user|string|null: false|
+|name|string|null: false|
 |email|string|null: false|
 |password|string|null: false|
 ### Association
 - has_many :groups_users
 - has_many :groups, through: :users_groups
+- has_many :tweets
 
 ## groupsテーブル
 |Column|Type|Option|
 |------|----|------|
-|group|text|null: false|
-|user_id|null: false, foreign_key: true|
+|name|text|null: false, uniqu: true|
+|tweet_id|integer|null: false, foreign_key: true|
 ### Association
-- belong_to :user
-- has_many groups_users
+- has_many :groups_users
 - has_many :users, through: :groups_users
+- has_many :tweets
 
 ## tweetsテーブル
 |Column|Type|Option|
 |------|----|------|
-|tweet|text|null: false|
+|body|text|null: false|
+|image|text||
 |group_id|integer|null: false, foreign_key: true|
+|user_id|integer|null: false, foreign_key: true|
 ### Association
 - belongs_to :group
+- belong_to :user
 
 ## groups_usersテーブル
 |Column|Type|Option|
